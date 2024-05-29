@@ -22,7 +22,7 @@ private:
 
 protected:
 
-	std::shared_ptr<KdModelWork>		m_spModel	= nullptr;
+	std::shared_ptr<KdModelData>		m_spModel	= nullptr;
 	std::weak_ptr<PlanetBase>			m_wpParent;
 
 	Math::Matrix						m_mTrans	= Math::Matrix::Identity;

@@ -15,8 +15,8 @@ void Earth::Init()
 
 	if (!m_spModel)
 	{
-		m_spModel = std::make_shared<KdModelWork>();
-		m_spModel->SetModelData("Asset/Data/LessonData/Planets/earth.gltf");
+		m_spModel = std::make_shared<KdModelData>();
+		m_spModel->Load("Asset/Data/LessonData/Planets/earth.gltf");
 
 		// 原点(回転させたい中心点)からどれだけ離れた位置にいるか
 		m_mTrans = Math::Matrix::CreateTranslation(0,0,-4.0f);

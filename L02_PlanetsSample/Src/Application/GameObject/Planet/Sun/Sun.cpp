@@ -16,8 +16,8 @@ void Sun::Init()
 
 	if (!m_spModel)
 	{
-		m_spModel = std::make_shared<KdModelWork>();
-		m_spModel->SetModelData("Asset/Data/LessonData/Planets/sun.gltf");
+		m_spModel = std::make_shared<KdModelData>();
+		m_spModel->Load("Asset/Data/LessonData/Planets/sun.gltf");
 	}
 }
 

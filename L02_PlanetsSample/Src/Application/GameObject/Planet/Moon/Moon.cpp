@@ -15,8 +15,8 @@ void Moon::Init()
 
 	if (!m_spModel)
 	{
-		m_spModel = std::make_shared<KdModelWork>();
-		m_spModel->SetModelData("Asset/Data/LessonData/Planets/moon.gltf");
+		m_spModel = std::make_shared<KdModelData>();
+		m_spModel->Load("Asset/Data/LessonData/Planets/moon.gltf");
 
 		// 原点(回転させたい中心点)からどれだけ離れた位置にいるか
 		m_mTrans = Math::Matrix::CreateTranslation(0, 0, -1.5f);
