@@ -1,5 +1,8 @@
 ﻿#pragma once
 
+class Character;
+class UI;
+
 //============================================================
 // アプリケーションクラス
 //	APP.～ でどこからでもアクセス可能
@@ -51,6 +54,9 @@ private:
 	// ゲーム終了フラグ trueで終了する
 	bool		m_endFlag = false;
 
+	std::weak_ptr<Character> m_character;
+	std::weak_ptr<UI> m_ui;
+
 	std::shared_ptr<KdCamera>					m_spCamera	= nullptr;
 	std::vector<std::shared_ptr<KdGameObject>>	m_GameObjectList{};
 
@@ -58,7 +64,7 @@ private:
 // シングルトンパターン
 //=====================================================
 private:
-	// 
+	//
 	Application() {}
 
 public:

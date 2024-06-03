@@ -2,6 +2,8 @@
 
 #include "GameObject/Terrain/Terrain.h"
 #include "GameObject/Character/Character.h"
+#include "GameObject/UI/UI.h"
+
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
 // エントリーポイント
 // アプリケーションはこの関数から進行する
@@ -87,6 +89,11 @@ void Application::Update()
 	{
 		gameObj->Update();
 	}
+
+	if (!m_ui.expired() && !m_character.expired())
+	{
+		m_ui.lock()->SetPos(m_character.lock()->GetPos());
+	}
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -165,6 +172,8 @@ void Application::Draw()
 	{
 	}
 	KdShaderManager::Instance().m_postProcessShader.EndBright();
+
+	KdShaderManager::Instance().m_spriteShader.SetMatrix(Math::Matrix::Identity);
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -199,6 +208,11 @@ void Application::DrawSprite()
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
 bool Application::Init(int w, int h)
 {
+	srand(timeGetTime());
+	srand(timeGetTime());
+	srand(timeGetTime());
+	srand(timeGetTime());
+	srand(timeGetTime());
 	//===================================================================
 	// ウィンドウ作成
 	//===================================================================
@@ -273,6 +287,15 @@ bool Application::Init(int w, int h)
 	_character->Init();
 	_character->SetCamera(m_spCamera);
 	m_GameObjectList.push_back(_character);
+	m_character = _character;
+
+	//===================================================================
+	// キャラクターUI初期化
+	//===================================================================
+	std::shared_ptr<UI> _ui = std::make_shared<UI>();
+	_ui->SetCamera(m_spCamera);
+	m_GameObjectList.push_back(_ui);
+	m_ui = _ui;
 
 	return true;
 }
