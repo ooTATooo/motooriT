@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 class Terrain : public KdGameObject
 {
@@ -7,7 +7,6 @@ public:
 	virtual ~Terrain()		override {}
 
 	void Init()				override;
-	void Update()			override;
 	void DrawLit()			override;
 
 private:

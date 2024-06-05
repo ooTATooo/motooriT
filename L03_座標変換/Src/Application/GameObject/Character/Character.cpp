@@ -12,9 +12,48 @@ void Character::Init()
 
 void Character::Update()
 {
+	// 右クリックしたら
+	if (GetAsyncKeyState(VK_RBUTTON) & 0x8000)
+	{
+		// マウス位置の取得
+		POINT _mousePos;
+		GetCursorPos(&_mousePos);
+
+		std::shared_ptr<KdCamera> _spCam = m_camera.lock();
+		if (_spCam)
+		{
+			// レイの発射方向を求める(_rayDir)
+			Math::Vector3 _camPos = _spCam->GetCameraMatrix().Translation();
+			Math::Vector3 _rayDir = Math::Vector3::Zero;
+			float _rayRange = 1000.0f;
+			_spCam->GenerateRayInfoFromClientPos(_mousePos, _camPos, _rayDir, _rayRange);
+
+			// レイの衝突位置を求める
+			const std::shared_ptr<KdGameObject> _spTerrain = m_terrain.lock();
+			if (_spTerrain)
+			{
+				Math::Vector3 _endRayPos = _camPos + (_rayDir * _rayRange);
+				KdCollider::RayInfo _rayInfo(KdCollider::TypeGround, _camPos, _endRayPos);
+
+				//実際の当たり判定処理
+				std::list<KdCollider::CollisionResult> _results;
+				_spTerrain->Intersects(_rayInfo, &_results);
+
+				// 結果が1つでも返って来ていたら
+				if (_results.size())
+				{
+					for (auto& result : _results)
+					{
+						m_TargetPos = result.m_hitPos;
+					}
+				}
+			}
+		}
+	}
+
 	// キャラクターの移動速度(真似しちゃダメですよ)
 	float moveSpd = 0.05f;
-	Math::Vector3 nowPos = m_mWorld.Translation();
+	Math::Vector3 nowPos = m_TargetPos;
 
 	Math::Vector3 moveVec = Math::Vector3::Zero;
 	if (GetAsyncKeyState('D')) { moveVec.x = 1.0f; }
