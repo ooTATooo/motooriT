@@ -1,4 +1,5 @@
 ﻿#include "Character.h"
+#include "../../main.h"
 
 void Character::Init()
 {
@@ -18,6 +19,7 @@ void Character::Update()
 		// マウス位置の取得
 		POINT _mousePos;
 		GetCursorPos(&_mousePos);
+		ScreenToClient(Application::Instance().GetWindowHandle(), &_mousePos);
 
 		std::shared_ptr<KdCamera> _spCam = m_camera.lock();
 		if (_spCam)
@@ -53,13 +55,10 @@ void Character::Update()
 
 	// キャラクターの移動速度(真似しちゃダメですよ)
 	float moveSpd = 0.05f;
-	Math::Vector3 nowPos = m_TargetPos;
+	Math::Vector3 nowPos = GetPos();
 
-	Math::Vector3 moveVec = Math::Vector3::Zero;
-	if (GetAsyncKeyState('D')) { moveVec.x = 1.0f; }
-	if (GetAsyncKeyState('A')) { moveVec.x = -1.0f; }
-	if (GetAsyncKeyState('W')) { moveVec.z = 1.0f; }
-	if (GetAsyncKeyState('S')) { moveVec.z = -1.0f; }
+	Math::Vector3 moveVec = m_TargetPos - nowPos;
+	if (moveVec.Length() < moveSpd) { moveSpd = moveVec.Length(); }
 	moveVec.Normalize();
 	moveVec *= moveSpd;
 	nowPos += moveVec;
