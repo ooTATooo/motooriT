@@ -9,14 +9,14 @@ void CameraBase::Init()
 
 void CameraBase::Update()
 {
-	//if (!m_spCamera) return;
+	if (!m_spCamera) return;
 
 	m_spCamera->SetCameraMatrix(m_mWorld);
 }
 
 void CameraBase::PreDraw()
 {
-	//if (!m_spCamera) return;
+	if (!m_spCamera) return;
 
 	m_spCamera->SetToShader();
 }
