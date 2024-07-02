@@ -76,6 +76,6 @@ void Character::UpdateRotate(const Math::Vector3& srcMoveVec)
 		_betweenAng += 360;
 	}
 
-	float _rotateAng = std::
+	//float _rotateAng = std::
 }
 

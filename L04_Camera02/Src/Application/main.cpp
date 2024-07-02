@@ -267,6 +267,7 @@ bool Application::Init(int w, int h)
 	_character->Init();
 	_character->SetCamera(_camera);
 	_camera->SetTarget(_character);
+	_camera->RegistHitObject(_terrain);
 	m_GameObjectList.push_back(_character);
 
 	return true;

@@ -14,6 +14,7 @@ public:
 
 	void SetCamera(std::shared_ptr<CameraBase> _camera) { m_wpCamera = _camera; }
 
+
 private:
 
 	void UpdateRotate(const Math::Vector3& srcMoveVec);

@@ -27,10 +27,13 @@ public:
 			DirectX::XMConvertToRadians(m_DegAng.y));
 	}
 
+	void RegistHitObject(const std::shared_ptr<KdGameObject>& object) { m_hitObjectList.push_back(object); }
+
 protected:
 
 	std::shared_ptr<KdCamera> m_spCamera = nullptr;
 	std::weak_ptr<KdGameObject> m_wpTarget;
+	std::vector<std::weak_ptr<KdGameObject>> m_hitObjectList;
 
 	Math::Matrix m_LocalPos;
 	Math::Matrix m_Rotation;
