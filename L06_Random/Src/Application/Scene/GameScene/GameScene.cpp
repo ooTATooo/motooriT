@@ -147,30 +147,29 @@ void GameScene::Init()
 	//OutputDebugStringA("--------------------------------------\n");
 
 	// レッスンその3:CカードとRカードとSRカードをそれぞれ34% 33% 33%の確率で起動時に表示せよ
+	// レッスンその4:CカードとRカードとSRカードをそれぞれ50% 49.5% 0.5%の確率で起動時に表示せよ
 	OutputDebugStringA("--------------------------------------\n");
-	int bunbo = 100;
+	int bunbo = 1000;
+	int randNum[3] = { 500,495,5 };
 	int thusenNum = 10000000;
 	int tosenNum[3] = {};
 
 	for (int i = 0; i < thusenNum; i++)
 	{
-		int rad = KdGetInt(0, bunbo - 1);
-		if (rad < 33)
+		int rnd = KdGetInt(0, bunbo - 1);
+		for (int j = 0; j < std::size(randNum); j++)
 		{
-			tosenNum[2]++;
-		}
-		else if (rad > 32 && rad < 66)
-		{
-			tosenNum[1]++;
-		}
-		else
-		{
-			tosenNum[0]++;
+			rnd -= randNum[j];
+			if (rnd < 0)
+			{
+				tosenNum[j]++;
+				break;
+			}
 		}
 	}
 
 	float prob = 0;
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < std::size(randNum); i++)
 	{
 		std::stringstream ss;
 		prob = ((float)tosenNum[i] / (float)thusenNum) * 100;
