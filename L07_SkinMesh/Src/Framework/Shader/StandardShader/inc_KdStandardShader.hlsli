@@ -3,10 +3,11 @@ cbuffer cbObject : register(b0)
 {
 	float2	g_UVOffset;
 	float2	g_UVTiling;
-	
+
 	int g_FogEnable;	// フォグ有効
 	int g_OnlyEmissie;	// エミッシブの描画だけにするかどうか
-	
+	int g_IsSkinMeshObj; // スキンメッシュオブジェクトかどうか(スキンメッシュ対応)
+
 	float g_dissolveValue;		// ディゾルブの閾値
 	float g_dissolveEdgeRange;	// ディゾルブの境界線の太さ
 	float3 g_dissolveEmissive;	// 境界の色
@@ -25,6 +26,12 @@ cbuffer cbMaterial : register(b2)
 	float3	g_Emissive;  // 自己発光色
 	float	g_Metallic;	 // 金属度
 	float	g_Roughness; // 粗さ
+};
+
+// ボーン行列(スキンメッシュ対応)
+cbuffer cbBones : register(b3)
+{
+	row_major float4x4 g_mBones[300];
 };
 
 // 頂点シェーダから出力するデータ
