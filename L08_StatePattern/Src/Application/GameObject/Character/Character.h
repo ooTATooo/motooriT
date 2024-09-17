@@ -39,6 +39,7 @@ private:
 	Math::Vector3 m_worldRot;
 
 	float m_Gravity = 0;
+	bool m_IsGround = false;
 
 	// ステートパターン管理係！
 private:
@@ -70,6 +71,17 @@ private:
 	public:
 
 		~ActionJump() {}
+
+		void Enter(Character& owner)override;
+		void Update(Character& owner)override;
+		void Exit(Character& owner)override;
+	};
+
+	class ActionMove :public ActionAtateBase
+	{
+	public:
+
+		~ActionMove() {}
 
 		void Enter(Character& owner)override;
 		void Update(Character& owner)override;
