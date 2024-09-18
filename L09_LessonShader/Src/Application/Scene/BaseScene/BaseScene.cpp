@@ -116,6 +116,20 @@ void BaseScene::DrawSprite()
 	KdShaderManager::Instance().m_spriteShader.End();
 }
 
+void BaseScene::DrawLesson()	// 本告授業
+{
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
+	// 授業用シェーダの描画はこの間で行う
+	KdShaderManager::Instance().m_LessonShader.Begin();
+	{
+		for (auto& obj : m_objList)
+		{
+			obj->DrawLesson();
+		}
+	}
+	KdShaderManager::Instance().m_LessonShader.End();
+}
+
 void BaseScene::DrawDebug()
 {
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====

@@ -214,7 +214,7 @@ void Character::ActionIdle::Update(Character& owner)
 		owner.ChangeActionState(std::make_shared<ActionWalk>());
 	}
 }
-void Character::ActionIdle::Exit(Character& owner) {}
+void Character::ActionIdle::Exit(Character& owner){}
 
 // ↓ジャンプ状態！
 void Character::ActionJump::Enter(Character& owner)

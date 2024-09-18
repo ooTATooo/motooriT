@@ -1,132 +1,144 @@
-#include "Framework/KdFramework.h"
+ï»¿#include "Framework/KdFramework.h"
 
 #include "KdLessonShader.h"
 
 //================================================
-// •`‰æ€”õ
+// æç”»æº–å‚™
 //================================================
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// ‰A‰e‚ğ‚Â‚¯‚éƒIƒuƒWƒFƒNƒg‚Ì•`‰æ‚Ì’¼‘Oˆ—i•s“§–¾‚È•¨‘Ì‚âƒLƒƒƒ‰ƒNƒ^‚Ì”Âƒ|ƒŠƒSƒ“j
+// é™°å½±ã‚’ã¤ã‘ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æç”»ã®ç›´å‰å‡¦ç†ï¼ˆä¸é€æ˜ãªç‰©ä½“ã‚„ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ã®æ¿ãƒãƒªã‚´ãƒ³ï¼‰
 // ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
-// ƒVƒF[ƒ_[‚ÌƒpƒCƒvƒ‰ƒCƒ“•ÏX
-// LitShader‚Åg—p‚·‚éƒŠƒ\[ƒX‚Ìƒoƒbƒtƒ@[İ’è
+// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³å¤‰æ›´
+// LitShaderã§ä½¿ç”¨ã™ã‚‹ãƒªã‚½ãƒ¼ã‚¹ã®ãƒãƒƒãƒ•ã‚¡ãƒ¼è¨­å®š
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-void KdLessonShader::BeginLessonShader()
+void KdLessonShader::Begin()
 {
-    // ’¸“_ƒVƒF[ƒ_[‚ÌƒpƒCƒvƒ‰ƒCƒ“•ÏX
-    if (KdShaderManager::Instance().SetVertexShader(m_VS))
-    {
-        KdShaderManager::Instance().SetInputLayout(m_inputLayout);
-    }
+	// é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³å¤‰æ›´
+	if (KdShaderManager::Instance().SetVertexShader(m_VS))
+	{
+		KdShaderManager::Instance().SetInputLayout(m_inputLayout);
 
-    // ƒsƒNƒZƒ‹ƒVƒF[ƒ_[‚ÌƒpƒCƒvƒ‰ƒCƒ“•ÏX
-    if (KdShaderManager::Instance().SetPixelShader(m_PS))
-    {
-    }
+		KdShaderManager::Instance().SetVSConstantBuffer(1, m_cb1_Mesh.GetAddress());	// æœ¬å‘Šæˆæ¥­
+	}
+
+	// ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³å¤‰æ›´
+	if (KdShaderManager::Instance().SetPixelShader(m_PS))
+	{
+	}
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// ‰A‰e‚ ‚èƒIƒuƒWƒFƒNƒg‚Ì•`‰æC—¹
+// é™°å½±ã‚ã‚Šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æç”»ä¿®äº†
 // ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-void KdLessonShader::EndLessonShader()
+void KdLessonShader::End()
 {
 }
 
 bool KdLessonShader::Init()
 {
-    //-------------------------------------
-    // ’¸“_ƒVƒF[ƒ_
-    //-------------------------------------
-    {
-        // ƒRƒ“ƒpƒCƒ‹Ï‚İ‚ÌƒVƒF[ƒ_[ƒwƒbƒ_[ƒtƒ@ƒCƒ‹‚ğƒCƒ“ƒNƒ‹[ƒh
+	//-------------------------------------
+	// é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€
+	//-------------------------------------
+	{
+		// ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«æ¸ˆã¿ã®ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ˜ãƒƒãƒ€ãƒ¼ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 #include "KdLessonShader_VS.shaderInc"
 
-        // ’¸“_ƒVƒF[ƒ_[ì¬
-        if (FAILED(KdDirect3D::Instance().WorkDev()->CreateVertexShader(compiledBuffer, sizeof(compiledBuffer), nullptr, &m_VS))) {
-            assert(0 && "’¸“_ƒVƒF[ƒ_[ì¬¸”s");
-            Release();
-            return false;
-        }
+		// é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ä½œæˆ
+		if (FAILED(KdDirect3D::Instance().WorkDev()->CreateVertexShader(compiledBuffer, sizeof(compiledBuffer), nullptr, &m_VS))) {
+			assert(0 && "é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ä½œæˆå¤±æ•—");
+			Release();
+			return false;
+		}
 
-        // ‚P’¸“_‚ÌÚ×‚Èî•ñ
-        std::vector<D3D11_INPUT_ELEMENT_DESC> layout = {
-            { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,   0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-            { "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,	    0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-            { "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT,   0, 20, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-            { "COLOR",    0, DXGI_FORMAT_R8G8B8A8_UNORM,    0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-        };
+		// ï¼‘é ‚ç‚¹ã®è©³ç´°ãªæƒ…å ±
+		std::vector<D3D11_INPUT_ELEMENT_DESC> layout = {
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,   0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,	    0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT,   0, 20, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "COLOR",    0, DXGI_FORMAT_R8G8B8A8_UNORM,    0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		};
 
-        // ’¸“_“ü—ÍƒŒƒCƒAƒEƒgì¬
-        if (FAILED(KdDirect3D::Instance().WorkDev()->CreateInputLayout(
-            &layout[0],				// “ü—ÍƒGƒŒƒƒ“ƒgæ“ªƒAƒhƒŒƒX
-            layout.size(),			// “ü—ÍƒGƒŒƒƒ“ƒg”
-            &compiledBuffer[0],		// ’¸“_ƒoƒbƒtƒ@‚ÌƒoƒCƒiƒŠƒf[ƒ^
-            sizeof(compiledBuffer),	// ã‹L‚Ìƒoƒbƒtƒ@ƒTƒCƒY
-            &m_inputLayout))
-            ) {
-            assert(0 && "CreateInputLayout¸”s");
-            Release();
-            return false;
-        }
+		// é ‚ç‚¹å…¥åŠ›ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆä½œæˆ
+		if (FAILED(KdDirect3D::Instance().WorkDev()->CreateInputLayout(
+			&layout[0],				// å…¥åŠ›ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆå…ˆé ­ã‚¢ãƒ‰ãƒ¬ã‚¹
+			layout.size(),			// å…¥åŠ›ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆæ•°
+			&compiledBuffer[0],		// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ãƒã‚¤ãƒŠãƒªãƒ‡ãƒ¼ã‚¿
+			sizeof(compiledBuffer),	// ä¸Šè¨˜ã®ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º
+			&m_inputLayout))
+			) {
+			assert(0 && "CreateInputLayoutå¤±æ•—");
+			Release();
+			return false;
+		}
 
-    }
+	}
 
-    //-------------------------------------
-    // ƒsƒNƒZƒ‹ƒVƒF[ƒ_
-    //-------------------------------------
-    {
+	//-------------------------------------
+	// ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€
+	//-------------------------------------
+	{
 #include "KdLessonShader_PS.shaderInc"
 
-        if (FAILED(KdDirect3D::Instance().WorkDev()->CreatePixelShader(compiledBuffer, sizeof(compiledBuffer), nullptr, &m_PS))) {
-            assert(0 && "ƒsƒNƒZƒ‹ƒVƒF[ƒ_[ì¬¸”s");
-            Release();
-            return false;
-        }
-    }
+		if (FAILED(KdDirect3D::Instance().WorkDev()->CreatePixelShader(compiledBuffer, sizeof(compiledBuffer), nullptr, &m_PS))) {
+			assert(0 && "ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ä½œæˆå¤±æ•—");
+			Release();
+			return false;
+		}
+	}
 
-    return true;
+	//-------------------------------------
+	// å®šæ•°ãƒãƒƒãƒ•ã‚¡
+	//-------------------------------------
+	m_cb1_Mesh.Create();
+	return true;
 }
 
 void KdLessonShader::Release()
 {
-    KdSafeRelease(m_VS);
-    KdSafeRelease(m_PS);
-    KdSafeRelease(m_inputLayout);
+	KdSafeRelease(m_VS);
+	KdSafeRelease(m_PS);
+	KdSafeRelease(m_inputLayout);
+
+	m_cb1_Mesh.Release();	//æœ¬å‘Šæˆæ¥­
 }
 
 void KdLessonShader::DrawMesh(const KdMesh* mesh, const Math::Matrix& mWorld, const std::vector<KdMaterial>& materials,
-                              const Math::Vector4& col, const Math::Vector3& emissive)
+	const Math::Vector4& col, const Math::Vector3& emissive)
 {
-    if (mesh == nullptr) { return; }
+	if (mesh == nullptr) { return; }
 
-    // ƒƒbƒVƒ…‚Ì’¸“_î•ñ“]‘—
-    mesh->SetToDevice();
+	// ãƒ¡ãƒƒã‚·ãƒ¥ã®é ‚ç‚¹æƒ…å ±è»¢é€
+	mesh->SetToDevice();
 
-    // ‘SƒTƒuƒZƒbƒg
-    for (UINT subi = 0; subi < mesh->GetSubsets().size(); subi++)
-    {
-        // –Ê‚ª‚P–‡‚à–³‚¢ê‡‚ÍƒXƒLƒbƒv
-        if (mesh->GetSubsets()[subi].FaceCount == 0)continue;
+	// 3Dãƒ¯ãƒ¼ãƒ«ãƒ‰è¡Œåˆ—è»¢é€
+	m_cb1_Mesh.Work().mW = mWorld;		//æœ¬å‘Šæˆæ¥­
+	m_cb1_Mesh.Write();
 
-        //-----------------------
-        // ƒTƒuƒZƒbƒg•`‰æ
-        //-----------------------
-        mesh->DrawSubset(subi);
-    }
+	// å…¨ã‚µãƒ–ã‚»ãƒƒãƒˆ
+	for (UINT subi = 0; subi < mesh->GetSubsets().size(); subi++)
+	{
+		// é¢ãŒï¼‘æšã‚‚ç„¡ã„å ´åˆã¯ã‚¹ã‚­ãƒƒãƒ—
+		if (mesh->GetSubsets()[subi].FaceCount == 0)continue;
+
+		//-----------------------
+		// ã‚µãƒ–ã‚»ãƒƒãƒˆæç”»
+		//-----------------------
+		mesh->DrawSubset(subi);
+	}
 }
 
 void KdLessonShader::DrawModel(const KdModelData& rModel, const Math::Matrix& mWorld,
-                               const Math::Color& colRate, const Math::Vector3& emissive)
+	const Math::Color& colRate, const Math::Vector3& emissive)
 {
-    auto& dataNodes = rModel.GetOriginalNodes();
+	auto& dataNodes = rModel.GetOriginalNodes();
 
-    // ‘S•`‰æ—pƒƒbƒVƒ…ƒm[ƒh‚ğ•`‰æ
-    for (auto& nodeIdx : rModel.GetDrawMeshNodeIndices())
-    {
-        // •`‰æ
-        DrawMesh(dataNodes[nodeIdx].m_spMesh.get(), dataNodes[nodeIdx].m_worldTransform * mWorld,
-            rModel.GetMaterials(), colRate, emissive);
-    }
+	// å…¨æç”»ç”¨ãƒ¡ãƒƒã‚·ãƒ¥ãƒãƒ¼ãƒ‰ã‚’æç”»
+	for (auto& nodeIdx : rModel.GetDrawMeshNodeIndices())
+	{
+		// æç”»
+		DrawMesh(dataNodes[nodeIdx].m_spMesh.get(), dataNodes[nodeIdx].m_worldTransform * mWorld,
+			rModel.GetMaterials(), colRate, emissive);
+	}
 }

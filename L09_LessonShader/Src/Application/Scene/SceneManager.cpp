@@ -40,6 +40,11 @@ void SceneManager::DrawSprite()
 	m_currentScene->DrawSprite();
 }
 
+void SceneManager::DrawLesson()
+{
+	m_currentScene->DrawLesson();	// 本告授業
+}
+
 void SceneManager::DrawDebug()
 {
 	m_currentScene->DrawDebug();

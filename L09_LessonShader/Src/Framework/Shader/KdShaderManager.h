@@ -4,6 +4,8 @@
 #include "PostProcessShader/KdPostProcessShader.h"
 #include "SpriteShader/KdSpriteShader.h"
 
+#include "LessonShader/KdLessonShader.h"
+
 // 点光源データ
 struct PointLight
 {
@@ -139,6 +141,7 @@ public:
 	KdPostProcessShader		m_postProcessShader;	// ポストプロセスシェーダ
 	KdSpriteShader			m_spriteShader;			// 2Dテクスチャ描画シェーダ
 
+	KdLessonShader			m_LessonShader;			// 授業用描画シェーダ 本告授業
 	//==========================
 	//
 	// 描画パイプライン系の設定
