@@ -2,9 +2,22 @@
 #include "../inc_KdCommon.hlsli"
 #include "inc_KdLessonShader.hlsli"
 
-// テクスチャ
+// テクスチャの受け取り(画像データ そのままでは使えない)
+texture2D g_baseTex : register(t0);	// ベースカラーテクスチャ
 
-float4 main() : SV_TARGET
+// サンプラ(テクスチャから情報を抜き出す機能)
+SamplerState g_ss : register(s0);	// 通常テクスチャ描画用
+
+float4 main(VSOutput In) : SV_TARGET
 {
-	return float4(0.0f, 0.0f, 0.0f, 1.0f);
+	//-------------------------------
+	// シャドウマッピング(影判定)
+	//-------------------------------
+	float shadow = 1;
+
+	// ピクセルの3D座標から、DepthMapFromLight空間へ変換
+	float4 liPos = mul(float4(In.wPos, 1), g_DL_mLightVP);
+	liPos.xyz /= liPos.w;
+
+	return g_baseTex.Sample(g_ss, In.UV) * g_BaseColor * In.Color;
 }

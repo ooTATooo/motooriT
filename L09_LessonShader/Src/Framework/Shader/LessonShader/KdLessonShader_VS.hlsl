@@ -1,16 +1,11 @@
 // カメラやライトのデータを使える様になる	本告授業
 #include "../inc_KdCommon.hlsli"
 #include "inc_KdLessonShader.hlsli"
-// 頂点シェーダから出力するデータ
-struct VSOutput
-{
-	float4 Pos : SV_Position;
-};
 
 //===========================================
 // 頂点シェーダー　１つ１つの頂点がやってくる
 //===========================================
-VSOutput main(float4 pos : POSITION) : SV_POSITION
+VSOutput main(float4 pos : POSITION,float2 uv : TEXCOORD0,float color : COLOR)
 {
 	VSOutput Out;
 
@@ -21,6 +16,12 @@ VSOutput main(float4 pos : POSITION) : SV_POSITION
 	Out.Pos = mul(pos, g_mWorld);
 	Out.Pos = mul(Out.Pos, g_mView);
 	Out.Pos = mul(Out.Pos, g_mProj);
+
+	// 頂点色
+	Out.Color = color;
 	
+	// UV座標
+	Out.UV = uv;
+
 	return Out;
 }
